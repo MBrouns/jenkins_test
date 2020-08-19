@@ -6,12 +6,13 @@ pipeline {
          }
     }
     environment {
-        R_LIBS = '~/.rLibs'
+        R_LIBS_USER = '~/.rLibs'
     }
     stages {
         stage('Build environment') {
             steps {
                 sh '''
+		
 		Rscript -e "install.packages('renv')"
 		Rscript -e "renv::init()"
 		Rscript -e "renv::restore()"
