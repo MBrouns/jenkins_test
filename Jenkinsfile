@@ -6,7 +6,7 @@ pipeline {
          }
     }
     environment {
-        R_LIBS = ${env.WORKSPACE}
+        R_LIBS = "${env.WORKSPACE}"
     }
     stages {
         stage('Build environment') {
