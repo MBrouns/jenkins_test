@@ -12,6 +12,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 sh '''
+		mkdir ${R_LIBS}
 		Rscript -e "install.packages('renv', lib=Sys.getenv('R_LIBS'))"
 		Rscript -e "renv::init()"
 		Rscript -e "renv::restore()"
