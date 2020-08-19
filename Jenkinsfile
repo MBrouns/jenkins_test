@@ -6,14 +6,12 @@ pipeline {
          }
     }
     environment {
-        R_LIBS = '~/.rLibs'
+        R_LIBS = ${env.WORKSPACE}
     }
     stages {
         stage('Build environment') {
             steps {
-		withEnv(["HOME=${env.WORKSPACE}"]) {
                 sh '''
-		
 		Rscript -e "install.packages('renv', lib=Sys.getenv('R_LIBS'))"
 		Rscript -e "renv::init()"
 		Rscript -e "renv::restore()"
@@ -21,7 +19,6 @@ pipeline {
 	    	Rscript -e "install.packages('.', repos = NULL, type='source' , lib=Sys.getenv('R_LIBS'))"     
           	chmod +x R/cli.R
 		'''
-		}
             }
         }
         stage('Test') {
