@@ -1,6 +1,9 @@
 pipeline {
     agent {
-         docker { image 'rocker/r-ver:4.0.0' }
+         docker { 
+	     image 'rocker/r-ver:4.0.0' 
+             args '-p 8000'
+         }
     }
     stages {
         stage('Build environment') {
@@ -10,6 +13,8 @@ pipeline {
 		Rscript -e "renv::init()"
 		Rscript -e "renv::restore()"
 		Rscript -e "install.packages('devtools')"
+	    	Rscript -e "install.packages('.', repos = NULL, type='source')"     
+          	chmod +x R/cli.R
 		'''
             }
         }
@@ -22,7 +27,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh './R/cli.R --bind 0.0.0.0'
+                input message: 'version looks ok?'
+
             }
         }
     }
