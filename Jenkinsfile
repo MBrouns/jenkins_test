@@ -5,11 +5,13 @@ pipeline {
              args '-p 8000'
          }
     }
+    environment {
+        R_LIBS = '~/.rLibs'
+    }
     stages {
         stage('Build environment') {
             steps {
                 sh '''
-		Rscript -e ".libPaths( c('~/rLib', .libPaths()) )"
 		Rscript -e "install.packages('renv')"
 		Rscript -e "renv::init()"
 		Rscript -e "renv::restore()"
