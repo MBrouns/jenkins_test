@@ -19,6 +19,7 @@ pipeline {
 		Rscript -e "install.packages('devtools', lib=Sys.getenv('R_LIBS'))"
 	    	Rscript -e "install.packages('.', repos = NULL, type='source' , lib=Sys.getenv('R_LIBS'))"     
           	chmod +x R/cli.R
+		Rscript -e "devtools::check()"
 		'''
             }
         }
