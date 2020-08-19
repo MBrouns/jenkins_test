@@ -6,18 +6,18 @@ pipeline {
          }
     }
     environment {
-        R_LIBS_USER = '~/.rLibs'
+        R_LIBS = '~/.rLibs'
     }
     stages {
         stage('Build environment') {
             steps {
                 sh '''
 		
-		Rscript -e "install.packages('renv')"
+		Rscript -e "install.packages('renv', lib=Sys.getenv('R_LIBS'))"
 		Rscript -e "renv::init()"
 		Rscript -e "renv::restore()"
-		Rscript -e "install.packages('devtools')"
-	    	Rscript -e "install.packages('.', repos = NULL, type='source')"     
+		Rscript -e "install.packages('devtools', lib=Sys.getenv('R_LIBS'))"
+	    	Rscript -e "install.packages('.', repos = NULL, type='source' , lib=Sys.getenv('R_LIBS'))"     
           	chmod +x R/cli.R
 		'''
             }
