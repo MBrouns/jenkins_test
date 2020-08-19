@@ -2,14 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build environment') {
             steps {
-                echo 'Building..'
+                sh '''
+		Rscript -e "install.packages('renv')"
+		Rscript -e "renv::init()"
+		Rscript -e "renv::restore()"
+		Rscript -e "install.packages('devtools')"
+		'''
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh '''
+		Rscript -e "devtools::check()"
+		'''
             }
         }
         stage('Deploy') {
