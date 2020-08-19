@@ -11,6 +11,7 @@ pipeline {
     stages {
         stage('Build environment') {
             steps {
+		withEnv(["HOME=${env.WORKSPACE}"]) {
                 sh '''
 		
 		Rscript -e "install.packages('renv', lib=Sys.getenv('R_LIBS'))"
@@ -20,6 +21,7 @@ pipeline {
 	    	Rscript -e "install.packages('.', repos = NULL, type='source' , lib=Sys.getenv('R_LIBS'))"     
           	chmod +x R/cli.R
 		'''
+		}
             }
         }
         stage('Test') {
