@@ -9,6 +9,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 sh '''
+		Rscript -e ".libPaths( c('~/rLib', .libPaths()) )"
 		Rscript -e "install.packages('renv')"
 		Rscript -e "renv::init()"
 		Rscript -e "renv::restore()"
