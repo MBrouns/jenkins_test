@@ -1,6 +1,6 @@
 FROM rocker/r-ver:4.0.0
 
-WORKDIR /fibo
+WORKDIR /fibonacc
 RUN Rscript -e "install.packages('renv')"
 COPY renv.lock .
 RUN Rscript -e "renv::init()"
