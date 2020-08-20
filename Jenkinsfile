@@ -16,7 +16,7 @@ pipeline {
 		apt-get update -qq && apt-get -y --no-install-recommends install  libssl-dev libxml2-dev libcurl4-openssl-dev libssh2-1-dev unixodbc-dev libsasl2-dev 
 		mkdir -p ${R_LIBS}
 		Rscript -e "install.packages('renv')"
-		Rscript -e "renv::init()"
+		Rscript -e "renv::init(force = TRUE)"
 		Rscript -e "install.packages('devtools')"
 	    	Rscript -e "install.packages('.', repos = NULL, type='source')"     
           	chmod +x R/cli.R
