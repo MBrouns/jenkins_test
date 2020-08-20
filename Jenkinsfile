@@ -1,4 +1,4 @@
-pipeline {
+ipeline {
     agent {
          docker { 
 	     image 'rocker/r-ver:4.0.0' 
@@ -27,14 +27,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-		Rscript -e "devtools::check()"
+		Rscript -e "devtools::test()"
 		'''
             }
         }
         stage('Deploy') {
             steps {
-                sh './R/cli.R --bind 0.0.0.0 &'
-                input message: 'version looks ok?'
 
             }
         }
