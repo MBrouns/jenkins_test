@@ -12,7 +12,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 sh '''
-		apt-get update -qq && apt-get -y --no-install-recommends install  libxml2-dev libcurl4-openssl-dev libssh2-1-dev unixodbc-dev libsasl2-dev 
+		apt-get update -qq && apt-get -y --no-install-recommends install  libssl-dev libxml2-dev libcurl4-openssl-dev libssh2-1-dev unixodbc-dev libsasl2-dev 
 		mkdir -p ${R_LIBS}
 		Rscript -e "install.packages('renv', lib=Sys.getenv('R_LIBS'))"
 		Rscript -e "renv::init()"
