@@ -17,6 +17,7 @@ pipeline {
 		mkdir -p ${R_LIBS}
 		Rscript -e "install.packages('renv')"
 		Rscript -e "renv::init(force = TRUE)"
+		Rscript -e "renv::restore()"
 		Rscript -e "install.packages('devtools')"
 	    	Rscript -e "install.packages('.', repos = NULL, type='source')"     
           	chmod +x R/cli.R
