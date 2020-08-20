@@ -33,7 +33,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'echo foo'
+                sh '''
+                    docker build -t foo .
+                '''
             }
         }
     }
