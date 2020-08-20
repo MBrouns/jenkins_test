@@ -1,11 +1,11 @@
 pipeline {
     agent {
-        docker { image 'node:14-alpine' }
+        docker { image 'rocker/r-ver:4.0.0' }
     }
     stages {
         stage('Test') {
             steps {
-                sh 'node --version'
+                sh 'Rscript -e renv::init()'
             }
         }
     }
