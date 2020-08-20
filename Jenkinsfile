@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'Rscript -e renv::init()'
+                sh 'Rscript -e "renv::init()"'
             }
         }
     }
