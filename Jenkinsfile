@@ -13,8 +13,7 @@ pipeline {
             steps {
                 sh '''
 apt-get update -qq && apt-get -y --no-install-recommends install \
-  libxml2-dev \
-  
+  libxml2-dev \ 
   libcurl4-openssl-dev \
   libssh2-1-dev \
   unixodbc-dev \
