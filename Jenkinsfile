@@ -21,7 +21,6 @@ pipeline {
 		Rscript -e "install.packages('devtools')"
 	    	Rscript -e "install.packages('.', repos = NULL, type='source')"     
           	chmod +x R/cli.R
-		Rscript -e "devtools::check()"
 		'''
             }
         }
