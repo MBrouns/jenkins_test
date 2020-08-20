@@ -32,6 +32,9 @@ pipeline {
             }
         }
         stage('Deploy') {
+	    agent {
+                node
+	    }
             steps {
                 sh '''
                     docker build -t foo .
