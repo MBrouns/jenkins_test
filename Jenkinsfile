@@ -4,7 +4,7 @@ pipeline {
 	     image 'rocker/r-ver:4.0.0' 
              args '-p 8000 '
          }
-    k}
+    }
     environment {
 	HOME = "${env.WORKSPACE}"
         R_LIBS = "${env.WORKSPACE}/.rlib"
