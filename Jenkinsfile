@@ -33,7 +33,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh './R/cli.R --bind 0.0.0.0'
+                sh './R/cli.R --bind 0.0.0.0 &'
                 input message: 'version looks ok?'
 
             }
