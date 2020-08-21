@@ -10,7 +10,7 @@ pipeline {
         R_LIBS = "${env.WORKSPACE}/.rlib"
     }
     stages {
-        stage('Deploy') {
+        stage('Deploytmp') {
             agent any
             steps {
                 sh '''
