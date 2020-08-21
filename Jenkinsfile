@@ -9,7 +9,7 @@ pipeline {
             agent {
                 docker {
                     image 'rocker/r-ver:4.0.0'
-                    args '-p 8000'
+                    args '-u 0:0'
                 }
      	    }
 	    steps {
@@ -28,7 +28,7 @@ pipeline {
             agent {
                 docker {
              	    image 'rocker/r-ver:4.0.0'
-             	    args '-p 8000'
+             	    args '-u 0:0'
                 }
             }
 	    steps {
@@ -49,7 +49,6 @@ pipeline {
     post {
         always {
 	    junit 'test-out.xml'
-	    deleteDir()
         }
     }
 }
