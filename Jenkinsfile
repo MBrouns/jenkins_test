@@ -15,7 +15,6 @@ pipeline {
 	    steps {
                 sh '''
 		apt-get update -qq && apt-get -y --no-install-recommends install libgit2-dev libssl-dev libxml2-dev libcurl4-openssl-dev libssh2-1-dev unixodbc-dev libsasl2-dev 
-		mkdir -p ${R_LIBS}
 		Rscript -e "install.packages('renv')"
 		Rscript -e "renv::init(force = TRUE)"
 		Rscript -e "renv::restore(repos = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest')"
@@ -50,6 +49,7 @@ pipeline {
     post {
         always {
 	    junit 'test-out.xml'
+	    deleteDir()
         }
     }
 }
