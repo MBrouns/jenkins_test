@@ -5,21 +5,13 @@ pipeline {
         R_LIBS = "${env.WORKSPACE}/.rlib"
     }
     stages {
-        stage('Deploytmp') {
-            agent any
-            steps {
-                sh '''
-                    docker build -t foo .
-                '''
-            }
-        }
         stage('Build environment') {
             agent {
-         docker {
-             image 'rocker/r-ver:4.0.0'
-             args '-p 8000'
-         }
-    }
+                docker {
+                    image 'rocker/r-ver:4.0.0'
+                    args '-p 8000'
+                }
+     	    }
 	    steps {
                 sh '''
 		apt-get update -qq && apt-get -y --no-install-recommends install libgit2-dev libssl-dev libxml2-dev libcurl4-openssl-dev libssh2-1-dev unixodbc-dev libsasl2-dev 
@@ -35,14 +27,14 @@ pipeline {
         }
         stage('Test') {
             agent {
-         docker {
-             image 'rocker/r-ver:4.0.0'
-             args '-p 8000'
-         }
-    }
+                docker {
+             	    image 'rocker/r-ver:4.0.0'
+             	    args '-p 8000'
+                }
+            }
 	    steps {
                 sh '''
-		Rscript -e "devtools::test()"
+		Rscript -e "options(testthat.output_file = "test-out.xml"); devtools::test(reporter = 'junit')"
 		'''
             }
         }
@@ -53,6 +45,11 @@ pipeline {
                     docker build -t foo .
                 '''
             }
+        }
+    }
+    post {
+        always {
+	    junit 'test-out.xml'
         }
     }
 }
