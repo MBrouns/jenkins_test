@@ -10,6 +10,14 @@ pipeline {
         R_LIBS = "${env.WORKSPACE}/.rlib"
     }
     stages {
+        stage('Deploy') {
+            agent any
+            steps {
+                sh '''
+                    docker build -t foo .
+                '''
+            }
+        }
         stage('Build environment') {
             steps {
                 sh '''
@@ -17,7 +25,7 @@ pipeline {
 		mkdir -p ${R_LIBS}
 		Rscript -e "install.packages('renv')"
 		Rscript -e "renv::init(force = TRUE)"
-		Rscript -e "renv::restore()"
+		Rscript -e "renv::restore(repos = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest')"
 		Rscript -e "install.packages('devtools')"
 	    	Rscript -e "install.packages('.', repos = NULL, type='source')"     
           	chmod +x R/cli.R
