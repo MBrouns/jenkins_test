@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
 	HOME = "${env.WORKSPACE}"
         R_LIBS = "${env.WORKSPACE}/.rlib"
